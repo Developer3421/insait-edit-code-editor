@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Insait_Edit_C_Sharp.InsaitCodeEditor.InsaitEditor"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+             Background="Transparent">
+
+    <UserControl.Styles>
+        <!-- Keep the editor background dark on hover/focus; overrides the app-wide
+             TextBox:pointerover / PART_BorderElement white style that is the source
+             of the "white flicker" when hovering over the editing area. -->
+        <Style Selector="TextBox.code-editor /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#FF14111B"/>
+        </Style>
+        <Style Selector="TextBox.code-editor:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#FF14111B"/>
+        </Style>
+        <Style Selector="TextBox.code-editor:focus-within /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#FF14111B"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid ColumnDefinitions="Auto,*">
+        <!-- Line number gutter -->
+        <Border Grid.Column="0"
+                Background="#FF0E0C16"
+                BorderBrush="#FF2E2438"
+                BorderThickness="0,0,1,0"
+                ClipToBounds="True">
+            <TextBlock x:Name="LineNumbersText"
+                       Text="1"
+                       FontFamily="Cascadia Code, Consolas, monospace"
+                       FontSize="14"
+                       Foreground="#FF7A6E8C"
+                       TextAlignment="Right"
+                       Padding="0,6,10,6"
+                       Margin="0,0,0,0"/>
+        </Border>
+
+        <!-- Main text area -->
+        <TextBox x:Name="TextArea"
+                 Grid.Column="1"
+                 Classes="code-editor"
+                 AcceptsReturn="True"
+                 AcceptsTab="True"
+                 TextWrapping="NoWrap"
+                 FontFamily="Cascadia Code, Consolas, monospace"
+                 FontSize="14"
+                 Background="#FF14111B"
+                 Foreground="#FFE8E0F0"
+                 CaretBrush="#FFDCC4FF"
+                 SelectionBrush="#40DCC4FF"
+                 BorderThickness="0"
+                 Padding="0,6,0,6"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,25 @@
+# Build output
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+.vs/
+
+# IDE and local tooling
+.idea/
+.kilo/
+**/node_modules/
+*.user
+
+# Security: prevent accidental commit of secrets, tokens, databases and keys
+*.db
+*.key
+*.dat
+*.pfx
+*.snk
+.env
+
+# GitHub OAuth service contains hardcoded authentication app data.
+# It stays local and is intentionally excluded from the public repository.
+GitHubOAuthService.cs

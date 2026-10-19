@@ -1,0 +1,187 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="280" d:DesignHeight="700"
+             x:Class="Insait_Edit_C_Sharp.Controls.SettingsPanelControl">
+    
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="SettingsBgBrush" Color="#FF1A0F08"/>
+        <SolidColorBrush x:Key="SettingsSurfaceBrush" Color="#FF231508"/>
+        <SolidColorBrush x:Key="SettingsBorderBrush" Color="#FF7A3810"/>
+        <SolidColorBrush x:Key="SettingsTextBrush" Color="#FFF0E8F4"/>
+        <SolidColorBrush x:Key="SettingsTextMutedBrush" Color="#FFB89B82"/>
+        <SolidColorBrush x:Key="SettingsAccentBrush" Color="#FFFFC09F"/>
+        <SolidColorBrush x:Key="SettingsAccentHoverBrush" Color="#FFFFD4B8"/>
+        <SolidColorBrush x:Key="SettingsAccentPressedBrush" Color="#FFE09070"/>
+        <SolidColorBrush x:Key="SettingsYellowBrush" Color="#FFFFA95C"/>
+        <SolidColorBrush x:Key="SettingsHoverBrush" Color="#4038180A"/>
+        <SolidColorBrush x:Key="SettingsSuccessBrush" Color="#FF50C878"/>
+        <SolidColorBrush x:Key="SettingsErrorBrush" Color="#FFF38BA8"/>
+    </UserControl.Resources>
+    
+    <UserControl.Styles>
+        <!-- Primary Button -->
+        <Style Selector="Button.settings-primary">
+            <Setter Property="Background" Value="{StaticResource SettingsAccentBrush}"/>
+            <Setter Property="Foreground" Value="#FF1F1A24"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.settings-primary:pointerover">
+            <Setter Property="Background" Value="{StaticResource SettingsAccentHoverBrush}"/>
+        </Style>
+        <Style Selector="Button.settings-primary:pressed">
+            <Setter Property="Background" Value="{StaticResource SettingsAccentPressedBrush}"/>
+        </Style>
+        
+        <!-- Secondary Button -->
+        <Style Selector="Button.settings-secondary">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource SettingsTextBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource SettingsBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style Selector="Button.settings-secondary:pointerover">
+            <Setter Property="Background" Value="{StaticResource SettingsHoverBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource SettingsAccentBrush}"/>
+        </Style>
+        
+        <!-- Browse Button -->
+        <Style Selector="Button.settings-browse">
+            <Setter Property="Background" Value="#FF4A2410"/>
+            <Setter Property="Foreground" Value="{StaticResource SettingsTextBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="CornerRadius" Value="0,6,6,0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.settings-browse:pointerover">
+            <Setter Property="Background" Value="{StaticResource SettingsAccentBrush}"/>
+        </Style>
+        
+        <!-- Icon Button -->
+        <Style Selector="Button.icon-btn">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Width" Value="28"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="CornerRadius" Value="4"/>
+        </Style>
+        <Style Selector="Button.icon-btn:pointerover">
+            <Setter Property="Background" Value="{StaticResource SettingsHoverBrush}"/>
+        </Style>
+
+        <Style Selector="TextBlock.settings-emoji">
+            <Setter Property="FontFamily" Value="Segoe UI Emoji, Segoe UI, Arial"/>
+        </Style>
+        
+        <!-- TextBox -->
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#FFF7F2EC"/>
+            <Setter Property="Foreground" Value="#FF1F1A24"/>
+            <Setter Property="CaretBrush" Value="#FF6C2FA0"/>
+            <Setter Property="SelectionBrush" Value="#66E9C9B8"/>
+            <Setter Property="SelectionForegroundBrush" Value="#FF1F1A24"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="CornerRadius" Value="6,0,0,6"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="BorderBrush" Value="#FFB8A6C4"/>
+        </Style>
+        <Style Selector="TextBox /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#FFF7F2EC"/>
+        </Style>
+    </UserControl.Styles>
+    
+    <Grid RowDefinitions="Auto,*" Background="{StaticResource SettingsSurfaceBrush}">
+        
+        <!-- Header -->
+        <Border Grid.Row="0" Padding="12,10" Background="#20000000" 
+                BorderBrush="{StaticResource SettingsBorderBrush}" BorderThickness="0,0,0,1">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Name="HeaderTitleText" Text="{DynamicResource Settings.Header}" FontSize="11" FontWeight="SemiBold" 
+                           Foreground="{StaticResource SettingsTextMutedBrush}" VerticalAlignment="Center"
+                           LetterSpacing="1"/>
+                <Button Grid.Column="1" Classes="icon-btn" ToolTip.Tip="{DynamicResource Settings.ResetTooltip}" 
+                        Name="ResetButton" Click="Reset_Click">
+                    <TextBlock Text="🔄" FontSize="12" Classes="settings-emoji"/>
+                </Button>
+            </Grid>
+        </Border>
+        
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="12" Spacing="4">
+                
+<!-- GitHub CLI Path -->
+                <TextBlock Text="{DynamicResource Settings.GitHubCliTitle}" FontSize="13" FontWeight="SemiBold"
+                           Foreground="{StaticResource SettingsTextBrush}" Margin="0,8,0,2"/>
+                <TextBlock Text="{DynamicResource Settings.GitHubCliDesc}" 
+                           FontSize="11" Foreground="{StaticResource SettingsTextMutedBrush}" Margin="0,0,0,6"
+                           TextWrapping="Wrap"/>
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox Name="GitHubCliPathBox" Watermark="C:\Program Files\GitHub CLI\gh.exe" 
+                             ToolTip.Tip="Path to gh.exe"/>
+                    <Button Grid.Column="1" Classes="settings-browse" Content="..." 
+                            Click="BrowseGitHubCli_Click" ToolTip.Tip="Browse for gh.exe"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,4,0,0">
+                    <TextBlock Name="GitHubCliStatusIcon" Text="" FontSize="11" Classes="settings-emoji"/>
+                    <TextBlock Name="GitHubCliStatusText" Text="" FontSize="10"
+                               Foreground="{StaticResource SettingsTextMutedBrush}"/>
+                </StackPanel>
+                
+                <Separator Background="{StaticResource SettingsBorderBrush}" Height="1" Margin="0,12"/>
+                
+                <!-- Kilo CLI Path -->
+                <TextBlock Text="{DynamicResource Settings.KiloCliTitle}" FontSize="13" FontWeight="SemiBold"
+                           Foreground="{StaticResource SettingsTextBrush}" Margin="0,8,0,2"/>
+                <TextBlock Text="{DynamicResource Settings.KiloCliDesc}" 
+                           FontSize="11" Foreground="{StaticResource SettingsTextMutedBrush}" Margin="0,0,0,6"
+                           TextWrapping="Wrap"/>
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox Name="KiloCliPathBox" Watermark="C:\Program Files\Kilo\kilo.exe" 
+                             ToolTip.Tip="Path to kilo.exe"/>
+                    <Button Grid.Column="1" Classes="settings-browse" Content="..." 
+                            Click="BrowseKiloCli_Click" ToolTip.Tip="Browse for kilo.exe"/>
+                </Grid>
+<StackPanel Orientation="Horizontal" Spacing="6" Margin="0,4,0,0">
+                    <TextBlock Name="KiloCliStatusIcon" Text="" FontSize="11" Classes="settings-emoji"/>
+                    <TextBlock Name="KiloCliStatusText" Text="" FontSize="10"
+                               Foreground="{StaticResource SettingsTextMutedBrush}"/>
+                </StackPanel>
+                
+                <Separator Background="{StaticResource SettingsBorderBrush}" Height="1" Margin="0,12"/>
+                
+                <!-- Auto-detect Button -->
+                <Button Classes="settings-secondary" Content="{DynamicResource Settings.AutoDetect}" 
+                        Name="AutoDetectButton" Click="AutoDetect_Click" HorizontalAlignment="Stretch"
+                        Margin="0,0,0,8" ToolTip.Tip="Try to find tools automatically"/>
+                
+                <!-- Save Button -->
+                <Button Classes="settings-primary" Content="{DynamicResource Settings.Save}" 
+                        Name="SaveButton" Click="Save_Click" HorizontalAlignment="Stretch"
+                        Margin="0,0,0,8"/>
+                
+                <!-- Status Message -->
+                <Border Name="StatusBorder" Background="#20FFB36B" CornerRadius="6" Padding="10,8" 
+                        IsVisible="False" Margin="0,4,0,0">
+                    <TextBlock Name="StatusMessageText" Text="" FontSize="12" Classes="settings-emoji"
+                               Foreground="{StaticResource SettingsTextBrush}" TextWrapping="Wrap"/>
+                </Border>
+                
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
+

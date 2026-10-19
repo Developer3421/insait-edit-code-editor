@@ -1,0 +1,419 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Insait_Edit_C_Sharp"
+        mc:Ignorable="d" d:DesignWidth="960" d:DesignHeight="640"
+        x:Class="Insait_Edit_C_Sharp.WelcomeWindow"
+        Title="Welcome to Insait Edit Code Editor"
+        WindowStartupLocation="CenterScreen"
+        SystemDecorations="None"
+        Width="960"
+        Height="640"
+        CanResize="False"
+        UseLayoutRounding="True"
+        FontFamily="Segoe UI, Arial, Tahoma">
+
+    <Window.Resources>
+        <!-- Fluent Orange-Purple Theme � mirrors MainWindow palette -->
+        <Color x:Key="BgPrimary">#FF1F1A24</Color>
+        <Color x:Key="BgSecondary">#FF251D2E</Color>
+        <Color x:Key="BgTertiary">#FF352840</Color>
+        <Color x:Key="BorderColor">#FF3E3050</Color>
+        <Color x:Key="TextPrimary">#FFF0E8F4</Color>
+        <Color x:Key="TextSecondary">#FF9E90B0</Color>
+        <Color x:Key="TextMuted">#FF736886</Color>
+        <Color x:Key="AccentOrange">#FFFFC09F</Color>
+        <Color x:Key="AccentPurple">#FFDCC4FF</Color>
+        <Color x:Key="AccentBlue">#FF89B4FA</Color>
+        <Color x:Key="AccentGreen">#FFA6E3A1</Color>
+
+        <SolidColorBrush x:Key="BgPrimaryBrush"    Color="{StaticResource BgPrimary}"/>
+        <SolidColorBrush x:Key="BgSecondaryBrush"  Color="{StaticResource BgSecondary}"/>
+        <SolidColorBrush x:Key="BgTertiaryBrush"   Color="{StaticResource BgTertiary}"/>
+        <SolidColorBrush x:Key="BorderBrush"        Color="{StaticResource BorderColor}"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush"   Color="{StaticResource TextPrimary}"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondary}"/>
+        <SolidColorBrush x:Key="TextMutedBrush"     Color="{StaticResource TextMuted}"/>
+        <SolidColorBrush x:Key="AccentOrangeBrush"  Color="{StaticResource AccentOrange}"/>
+        <SolidColorBrush x:Key="AccentPurpleBrush"  Color="{StaticResource AccentPurple}"/>
+        <SolidColorBrush x:Key="AccentBlueBrush"    Color="{StaticResource AccentBlue}"/>
+        <SolidColorBrush x:Key="AccentGreenBrush"   Color="{StaticResource AccentGreen}"/>
+
+        <LinearGradientBrush x:Key="LeftPanelGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FF2A1E38" Offset="0"/>
+            <GradientStop Color="#FF1D1828" Offset="0.6"/>
+            <GradientStop Color="#FF1A1520" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="AccentLineGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#FFFFC09F" Offset="0"/>
+            <GradientStop Color="#FFDCC4FF" Offset="0.5"/>
+            <GradientStop Color="Transparent" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+
+    <Window.Styles>
+        <Style Selector="Button.window-control">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="46"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Button.window-control:pointerover">
+            <Setter Property="Background" Value="#25FFFFFF"/>
+        </Style>
+        <Style Selector="Button.window-control.close:pointerover">
+            <Setter Property="Background" Value="#CCE81123"/>
+        </Style>
+
+        <Style Selector="Button.action-btn">
+            <Setter Property="Background" Value="#18FFFFFF"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#30FFFFFF"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="14,11"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.action-btn:pointerover">
+            <Setter Property="Background" Value="#28FFFFFF"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+        </Style>
+        <Style Selector="Button.action-btn:pressed">
+            <Setter Property="Background" Value="#38FFFFFF"/>
+        </Style>
+
+        <Style Selector="Button.project-item">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.project-item:pointerover">
+            <Setter Property="Background" Value="#12FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#30FFC09F"/>
+        </Style>
+        <Style Selector="Button.project-item:pressed">
+            <Setter Property="Background" Value="#20FFFFFF"/>
+        </Style>
+
+        <Style Selector="Button.link-btn">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource AccentPurpleBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.link-btn:pointerover">
+            <Setter Property="Foreground" Value="{StaticResource AccentOrangeBrush}"/>
+        </Style>
+
+        <!-- Dark search box -->
+        <Style Selector="TextBox.search-box">
+            <Setter Property="Background" Value="#FF2A2035"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10,9"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="SelectionBrush" Value="#50DCC4FF"/>
+            <Setter Property="SelectionForegroundBrush" Value="#FF1F1A24"/>
+            <Setter Property="CaretBrush" Value="{StaticResource AccentPurpleBrush}"/>
+        </Style>
+        <Style Selector="TextBox.search-box /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#FF2A2035"/>
+        </Style>
+        <Style Selector="TextBox.search-box:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#FF2E2438"/>
+        </Style>
+        <Style Selector="TextBox.search-box:focus-within /template/ Border#PART_BorderElement">
+            <Setter Property="Background" Value="#FF2E2438"/>
+        </Style>
+        <Style Selector="TextBox.search-box:focus">
+            <Setter Property="BorderBrush" Value="{StaticResource AccentOrangeBrush}"/>
+        </Style>
+        <Style Selector="TextBox.search-box /template/ TextBlock#PART_Watermark">
+            <Setter Property="Foreground" Value="#FF9E90B0"/>
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="Button.action-btn TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Emoji, Segoe UI, Arial"/>
+        </Style>
+        <Style Selector="Button.project-item TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Emoji, Segoe UI, Arial"/>
+        </Style>
+    </Window.Styles>
+
+    <Window.Background>
+        <SolidColorBrush Color="{StaticResource BgPrimary}"/>
+    </Window.Background>
+
+    <Border BorderBrush="#FF4A3A5C" BorderThickness="1" CornerRadius="10" ClipToBounds="True">
+        <Grid RowDefinitions="40,*">
+
+            <!--  TITLE BAR  -->
+            <Grid Grid.Row="0" Background="#FF3C3C3C">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Panel Grid.Column="0" Background="Transparent" PointerPressed="TitleBar_PointerPressed">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="14,0" Spacing="8">
+                            <Image Source="avares://Insait Edit/Icons/AppIcon.png"
+                                   Width="18" Height="18" VerticalAlignment="Center"/>
+                            <TextBlock Text="Insait Edit Code Editor" FontSize="12" FontWeight="SemiBold"
+                                       Foreground="{StaticResource AccentOrangeBrush}" VerticalAlignment="Center"/>
+                            <TextBlock Text="&#x2014;" FontSize="12" Foreground="#FF555555" VerticalAlignment="Center"/>
+                            <TextBlock Name="WelcomeTitleBarText" Text="Welcome Window" FontSize="12" Foreground="#FF888888" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Panel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Button Classes="window-control" Click="MinimizeButton_Click">
+                            <Image Source="avares://Insait Edit/Icons/MinButton.png" Width="26" Height="26"/>
+                        </Button>
+                        <Button Classes="window-control close" Click="CloseButton_Click">
+                            <Image Source="avares://Insait Edit/Icons/CloseButton.png" Width="26" Height="26"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+            <!--  MAIN CONTENT  -->
+            <Grid Grid.Row="1" ColumnDefinitions="310,*">
+
+                <!--  LEFT PANEL -->
+                <Border Grid.Column="0"
+                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
+                    <Border.Background>
+                        <StaticResource ResourceKey="LeftPanelGradient"/>
+                    </Border.Background>
+                    <Grid>
+                        <!-- Orange-purple accent stripe on left edge -->
+                        <Rectangle Width="3" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                            <Rectangle.Fill>
+                                <StaticResource ResourceKey="AccentLineGradient"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="3,0,0,0">
+
+                            <!-- Logo & Title -->
+                            <StackPanel Grid.Row="0" Margin="26,34,22,26" Spacing="16">
+                                <Border Width="64" Height="64" CornerRadius="14"
+                                        Background="#18FFC09F" HorizontalAlignment="Left">
+                                    <Image Source="avares://Insait Edit/Icons/AppIcon.png"
+                                           Width="44" Height="44"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+<StackPanel Spacing="5">
+                                     <TextBlock Text="Insait Edit Code Editor" FontSize="23" FontWeight="Bold"
+                                                Foreground="{StaticResource AccentOrangeBrush}"
+                                                TextWrapping="Wrap" MaxWidth="250"/>
+                                     <TextBlock Name="WelcomeSubtitleText"
+                                                Text="Code Editor "
+                                                FontSize="12"
+                                                Foreground="{StaticResource TextSecondaryBrush}"/>
+                                 </StackPanel>
+                                <Border Background="#20DCC4FF" CornerRadius="6"
+                                        Padding="10,5" HorizontalAlignment="Left"
+                                        BorderBrush="#30DCC4FF" BorderThickness="1">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                         <TextBlock Name="WelcomeVersionText" Text="Version 1.0.0 Preview"
+                                                    FontSize="11" Foreground="{StaticResource AccentPurpleBrush}"
+                                                    VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+
+                            <!-- Action Buttons -->
+                            <StackPanel Grid.Row="1" Margin="18,0,18,0" Spacing="8">
+
+                                <Button Classes="action-btn" Click="NewSolution_Click">
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Border Width="38" Height="38" CornerRadius="10" Background="#28DCC4FF">
+                                            <TextBlock Text="&#x1F4C1;" FontSize="17"
+                                                       FontFamily="Segoe UI Emoji, Segoe UI"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                                            <TextBlock Name="NewSolutionTitle" Text="New Folder"
+                                                       FontSize="13" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource TextPrimaryBrush}"/>
+                                            <TextBlock Name="NewSolutionDesc" Text="Create a new folder"
+                                                       FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+
+                                <Button Classes="action-btn" Click="NewProject_Click">
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Border Width="38" Height="38" CornerRadius="10" Background="#28FFC09F">
+                                            <TextBlock Text="&#x1F4C4;" FontSize="17"
+                                                       FontFamily="Segoe UI Emoji, Segoe UI"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                                            <TextBlock Name="NewProjectTitle" Text="New Script"
+                                                       FontSize="13" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource TextPrimaryBrush}"/>
+                                            <TextBlock Name="NewProjectDesc" Text="Create a new script file"
+                                                       FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+
+                                <Button Classes="action-btn" Click="OpenProject_Click">
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Border Width="38" Height="38" CornerRadius="10" Background="#2889B4FA">
+                                            <TextBlock Text="&#x1F4C2;" FontSize="17"
+                                                       FontFamily="Segoe UI Emoji, Segoe UI"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                                            <TextBlock Name="OpenTitle" Text="Open Folder"
+                                                       FontSize="13" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource TextPrimaryBrush}"/>
+                                            <TextBlock Name="OpenDesc" Text="Open a folder"
+                                                       FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+
+                                <Button Classes="action-btn" Click="CloneRepository_Click">
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Border Width="38" Height="38" CornerRadius="10" Background="#28A6E3A1">
+                                            <TextBlock Text="&#x1F4E5;" FontSize="17"
+                                                       FontFamily="Segoe UI Emoji, Segoe UI"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                                            <TextBlock Name="CloneTitle" Text="Clone Repository"
+                                                       FontSize="13" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource TextPrimaryBrush}"/>
+                                            <TextBlock Name="CloneDesc" Text="Get code from Git repository"
+                                                       FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+
+                            </StackPanel>
+
+                            <Panel Grid.Row="2"/>
+
+                            <!-- Footer -->
+                            <StackPanel Grid.Row="3" Margin="18,0,18,20" Spacing="10">
+                                <Rectangle Height="1" Fill="{StaticResource BorderBrush}"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!--  RIGHT PANEL  -->
+                <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*">
+
+                    <!-- Header bar -->
+                    <Border Grid.Row="0" Padding="24,16,24,14"
+                            Background="#14000000"
+                            BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="0,0,0,1">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                <TextBlock Text="&#x1F552;" FontSize="13"
+                                           FontFamily="Segoe UI Emoji, Segoe UI"
+                                           VerticalAlignment="Center"/>
+                                <TextBlock Name="RecentProjectsHeader" Text="RECENT PROJECTS"
+                                           FontSize="10" FontWeight="SemiBold" LetterSpacing="1.5"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <Button Grid.Column="1" Name="ClearAllButton"
+                                    Classes="link-btn" Content="Clear All"
+                                    VerticalAlignment="Center" Click="ClearRecent_Click"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Search -->
+                    <Border Grid.Row="1" Padding="20,14,20,8">
+                        <TextBox Classes="search-box" Name="SearchBox"
+                                 Watermark="&#x1F50D;  Search recent projects..."
+                                 TextChanged="SearchBox_TextChanged"/>
+                    </Border>
+
+                    <!-- Projects list -->
+                    <Border Grid.Row="2" Padding="12,4,12,12">
+                        <Grid>
+                            <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                                <ItemsControl Name="RecentProjectsList">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="local:RecentProjectItem" x:CompileBindings="False">
+                                            <Button Classes="project-item"
+                                                    Click="RecentProject_Click"
+                                                    Tag="{Binding Path}">
+                                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                                    <Border Width="42" Height="42" CornerRadius="10"
+                                                            Background="{Binding IconBackground}">
+                                                        <TextBlock Text="{Binding Icon}" FontSize="19"
+                                                                   FontFamily="Segoe UI Emoji, Segoe UI"
+                                                                   HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center"/>
+                                                    </Border>
+                                                    <StackPanel Grid.Column="1" Margin="14,0,0,0" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Name}"
+                                                                   FontSize="13" FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource TextPrimaryBrush}"/>
+                                                        <TextBlock Text="{Binding Path}"
+                                                                   FontSize="11"
+                                                                   Foreground="{StaticResource TextMutedBrush}"
+                                                                   TextTrimming="CharacterEllipsis"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="2" VerticalAlignment="Center"
+                                                                HorizontalAlignment="Right" Margin="8,0,4,0">
+                                                        <TextBlock Text="{Binding LastOpened}"
+                                                                   FontSize="11"
+                                                                   Foreground="{StaticResource TextMutedBrush}"
+                                                                   HorizontalAlignment="Right"/>
+                                                        <TextBlock Text="{Binding ProjectType}"
+                                                                   FontSize="10"
+                                                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                                                   HorizontalAlignment="Right"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Button>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+
+                            <!-- Empty State -->
+                            <StackPanel Name="EmptyState"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        IsVisible="False" Spacing="4">
+                                <TextBlock Text="&#x1F4C2;" FontSize="52"
+                                           FontFamily="Segoe UI Emoji, Segoe UI"
+                                           HorizontalAlignment="Center" Opacity="0.45"/>
+                                <TextBlock Text="No recent projects" FontSize="15" FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           HorizontalAlignment="Center" Margin="0,12,0,4"/>
+                                <TextBlock Text="Open a project or create a new one to get started"
+                                           FontSize="12" Foreground="{StaticResource TextMutedBrush}"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
+

@@ -1,0 +1,63 @@
+## Roslyn C# Analyzer Engine — Major Update
+
+This update introduces a **production-grade Roslyn C# compiler and analyzer engine** that brings JetBrains-quality inline diagnostics, syntax highlighting, and cross-file analysis directly into the editor — without needing a full MSBuild invocation.
+
+### What's New
+
+**Real-Time Diagnostics**
+- On every keystroke, the editor re-compiles the active document in a background Roslyn workspace and renders error/warning squiggles instantly (600 ms debounce).
+- Full-project analysis runs in parallel on a slower cadence (4 s) to catch cross-file issues like missing references, type ambiguities, and accessibility violations.
+
+**Compiler-Level Accuracy**
+The analyzer reads your .csproj and mirrors the real MSBuild compilation environment:
+- **Target framework** — single (`<TargetFramework>`) and multi-targeting (`<TargetFrameworks>`)
+- **Nullable context** — `enable`, `warnings`, `annotations`, `disable`
+- **LangVersion** — any valid C# language version including `preview`
+- **Preprocessor symbols** — `DEBUG`, `TRACE`, custom constants from `<DefineConstants>`
+- **Output type** — `Exe`, `WinExe`, `Library`
+- **Warning configuration** — `<NoWarn>`, `<WarningsAsErrors>`, `<WarningsNotAsErrors>`, `<TreatWarningsAsErrors>`, `<WarningLevel>`
+- **Assembly metadata** — `<AllowUnsafeBlocks>`, `<CheckForOverflowUnderflow>`, `<Deterministic>`, `<Optimize>`
+- **AssemblyInfo attributes** — synthetic `AssemblyVersion`, `AssemblyFileVersion`, `AssemblyCompany`, `Guid`, `ComVisible`, etc. (generated automatically)
+
+**Reference Resolution**
+- All .NET SDK reference assemblies from `Microsoft.NETCore.App.Ref` and `Microsoft.WindowsDesktop.App.Ref` ref packs (metadata-only, no IL).
+- NuGet package references resolved from `project.assets.json` (lock file) or from the global NuGet cache.
+- `<ProjectReference>` output DLLs (Debug/Release per TFM).
+- `<Reference>` items with `HintPath`, including **extern alias** support.
+- **COM reference** resolution — finds interop DLLs from `bin/`, `obj/`, and other standard locations.
+
+**XAML / Avalonia / WPF Integration**
+- Parses `.axaml` and `.xaml` files and generates synthetic C# partial class stubs with `InitializeComponent()` and named control declarations.
+- No more false-positive CS0111/CS0108/CS0169 on XAML-generated members.
+- Detects Avalonia and WPF frameworks automatically from the XAML namespace.
+
+**IDE Analyzers**
+- Built-in IDE analyzers (IDE0001–IDE1006, style, naming rules) run alongside the compiler diagnostics.
+- `.editorconfig` is discovered from the project directory upward and applied as an analyzer config document — `dotnet_style_*`, `csharp_style_*` settings work as expected.
+
+**Advanced .csproj Features**
+- **Shared Projects** (`.shproj`) — source files from shared project imports are included in the compilation.
+- **Linked Files** — files outside the project directory using `<Compile Link="...">` are automatically discovered.
+- **AdditionalFiles** — all `<AdditionalFiles>` are passed as analyzer additional documents so analyzers can read config/data files.
+- **Generated source files** — real `.g.cs` files from `obj/` are included when available.
+
+**Supported Diagnostic Codes**
+All CS0xxx–CS9xxx compiler error/warning codes are classified correctly:
+- CS1xxx — syntax errors (red squiggles)
+- CS8xxx — nullable / pattern-matching / function-pointer errors
+- CS9xxx — C# 9–12 feature-specific errors
+- IDE — style and naming diagnostics (Info/Hint severity)
+- Non-breaking diagnostics shown as info markers, not errors
+
+**Performance**
+- Two-tier analysis: lightweight per-document re-compilation + full-project background pass.
+- Analyzer results are deduplicated by code + location + message.
+- Diagnostics from synthetic generated files (`.g.cs`) are filtered out — only user-relevant errors are shown.
+
+### Bug Fixes
+- Fixed false CS0246 (type not found) when implicit usings are enabled.
+- Fixed false CS0114 (type conflict) when assembly-level attributes reference external types.
+- Fixed false CS0433 (ambiguous type) when the same assembly is referenced from multiple locations.
+- Fixed CS0111 (duplicate member) for XAML code-behind files with existing `InitializeComponent()`.
+- Fixed missing diagnostics from IDE analyzers when `.editorconfig` is present.
+- Fixed incorrect severity classification for nullable-related warnings.

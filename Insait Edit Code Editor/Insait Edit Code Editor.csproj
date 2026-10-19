@@ -1,0 +1,113 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <ApplicationIcon>Icons\AppIcon.ico</ApplicationIcon>
+        <RootNamespace>Insait_Edit_C_Sharp</RootNamespace>
+    </PropertyGroup>
+
+    <!-- Publish: no PDB files -->
+    <PropertyGroup Condition="'$(PublishSingleFile)' == 'true' Or '$(Configuration)' == 'Release'">
+        <DebugType>none</DebugType>
+        <DebugSymbols>false</DebugSymbols>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="12.0.4" />
+        <PackageReference Include="Avalonia.Desktop" Version="12.0.4" />
+        <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="12.0.4" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.4" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.4" />
+        <PackageReference Include="GitForWindows" Version="2.54.0" />
+        <!-- Iciclecreek.Avalonia.Terminal removed — replaced by Process-based InsaitTerminalPanel -->
+        <PackageReference Include="LiteDB" Version="6.0.0-prerelease.77" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.17">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">none</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
+        <PackageReference Include="Octokit" Version="14.0.0" />
+        <PackageReference Include="System.Drawing.Common" Version="11.0.0-preview.5.26302.115" />
+        <PackageReference Include="System.Net.Http.Json" Version="11.0.0-preview.6.26359.118" />
+        <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
+        <PackageReference Include="System.Text.Json" Version="11.0.0-preview.6.26359.118" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Insait Code Editor\" />
+      <Folder Include="NotificationWindows\" />
+      <Folder Include="ToastNotifications\" />
+      <Folder Include="ViewModels\" />
+    </ItemGroup>
+
+    <!-- Amber Fluent Editor — власний редактор коду з Roslyn Classification -->
+    
+    <!-- InsaitEditor — повноцінний редактор коду (Insait Code Editor) -->
+    <ItemGroup>
+     
+      <Compile Update="Insait Code Editor\InsaitEditor.axaml.cs">
+        <DependentUpon>InsaitEditor.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    
+    <!-- Include React UI build output -->
+    <ItemGroup>
+      <EmbeddedResource Include="React Ui\dist\**\*" Condition="Exists('React Ui\dist\')" />
+      <Content Include="React Ui\dist\**\*" Condition="Exists('React Ui\dist\')" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Icons\MaxButton.png" />
+      <AvaloniaResource Include="Icons\MaxButton.png" />
+      <None Remove="Icons\MinButton.png" />
+      <AvaloniaResource Include="Icons\MinButton.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AvaloniaResource>
+      <None Remove="Icons\CloseButton.png" />
+      <AvaloniaResource Include="Icons\CloseButton.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AvaloniaResource>
+      <None Remove="Icons\AppIcon.png" />
+      <AvaloniaResource Include="Icons\AppIcon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AvaloniaResource>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="MainWindow.Methods.cs">
+        <DependentUpon>MenuWindow.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="Controls\ConfirmDialog.axaml.cs">
+        <DependentUpon>ConfirmDialog.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="PreviewErrorWindow.axaml.cs">
+        <DependentUpon>PreviewErrorWindow.axaml</DependentUpon>
+      </Compile>
+      <Compile Update="AxamlLiveHost.axaml.cs">
+        <DependentUpon>AxamlLiveHost.axaml</DependentUpon>
+      </Compile>
+
+      <Compile Update="Terminal\InsaitTerminalPanel.axaml.cs">
+        <DependentUpon>InsaitTerminalPanel.axaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="Icons\KiloCodeIcon.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="Icons\kilocode (1).png" />
+      <AvaloniaResource Include="Icons\KiloCodeIcon.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AvaloniaResource>
+    </ItemGroup>
+    <ItemGroup>
+      <None Remove="Icons\git.png" />
+      <AvaloniaResource Include="Icons\git.png" />
+      <None Remove="Icons\githubcopilot-icon.png" />
+      <AvaloniaResource Include="Icons\githubcopilot-icon.png" />
+    </ItemGroup>
+</Project>
